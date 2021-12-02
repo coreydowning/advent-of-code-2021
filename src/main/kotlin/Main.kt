@@ -11,7 +11,7 @@ fun main(args: Array<String>) {
         }
     }
     println("Input: $inputs")
-    println("Day1SonarSweep: ${Day1SonarSweep.sweep(inputs)}")
+    println("Day1SonarSweep: ${Day1SonarSweep.sweep(inputs, args[0].toInt())}")
 }
 
 private fun readln() = readLine()!!
