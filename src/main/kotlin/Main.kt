@@ -1,17 +1,23 @@
 import com.coreydowning.adventofcode2021.Day1SonarSweep
+import com.coreydowning.adventofcode2021.Position
 import java.util.*
 
 fun main(args: Array<String>) {
-    val inputs = mutableListOf<Int>()
+    val inputs = mutableListOf<Pair<String, Int>>()
     while (true) {
         try {
-            inputs.add(readlnInt())
+            val cmd = readlnStrings()
+            inputs.add(cmd[0] to cmd[1].toInt())
         } catch (npe: NullPointerException) {
+            break
+        } catch (t: Throwable) {
+            System.err.println("caught $t")
             break
         }
     }
     println("Input: $inputs")
-    println("Day1SonarSweep: ${Day1SonarSweep.sweep(inputs, args[0].toInt())}")
+    val finalPosition = Position.initial.commands(inputs)
+    println("Day2Drive: $finalPosition which is ${finalPosition.multiplied}")
 }
 
 private fun readln() = readLine()!!
