@@ -1,13 +1,10 @@
-import com.coreydowning.adventofcode2021.Day1SonarSweep
-import com.coreydowning.adventofcode2021.Position
-import java.util.*
+import com.coreydowning.adventofcode2021.Part1
 
 fun main(args: Array<String>) {
-    val inputs = mutableListOf<Pair<String, Int>>()
+    val inputs = mutableListOf<String>()
     while (true) {
         try {
-            val cmd = readlnStrings()
-            inputs.add(cmd[0] to cmd[1].toInt())
+            inputs.add(readln())
         } catch (npe: NullPointerException) {
             break
         } catch (t: Throwable) {
@@ -16,8 +13,8 @@ fun main(args: Array<String>) {
         }
     }
     println("Input: $inputs")
-    val finalPosition = Position.initial.commands(inputs)
-    println("Day2Drive: $finalPosition which is ${finalPosition.multiplied}")
+    val consumption = Part1.calculate(inputs)
+    println("Day3BinaryDiagnostic: $consumption which is ${consumption.gammaRate * consumption.epsilonRate}")
 }
 
 private fun readln() = readLine()!!
@@ -58,12 +55,14 @@ private fun readShortArray2d(rows: Int, cols: Int) = Array(rows) { readShortArra
 private fun readLongArray2d(rows: Int, cols: Int) = Array(rows) { readLongArray().also { require(it.size == cols) } }
 private fun readIntArray2d(rows: Int, cols: Int) = Array(rows) { readIntArray().also { require(it.size == cols) } }
 private fun readFloatArray2d(rows: Int, cols: Int) = Array(rows) { readFloatArray().also { require(it.size == cols) } }
-private fun readDoubleArray2d(rows: Int, cols: Int) = Array(rows) { readDoubleArray().also { require(it.size == cols) } }
+private fun readDoubleArray2d(rows: Int, cols: Int) =
+    Array(rows) { readDoubleArray().also { require(it.size == cols) } }
 
 private fun isWhiteSpace(c: Char) = c in " \r\n\t"
 
 private fun readString() = generateSequence { System.`in`.read().toChar() }
     .dropWhile { isWhiteSpace(it) }.takeWhile { !isWhiteSpace(it) }.joinToString("")
+
 private fun readByte() = readString().toByte()
 private fun readShort() = readString().toShort()
 private fun readInt() = readString().toInt()
