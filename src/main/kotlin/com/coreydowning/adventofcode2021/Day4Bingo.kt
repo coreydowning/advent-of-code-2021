@@ -50,6 +50,8 @@ data class BingoGame(
     val boards: List<Board>,
     val calls: List<Int>,
 ) {
+    var winners = listOf<Board>()
+
     fun call(n: Int) {
         boards.forEach { board -> board.grid.indexOf(n).takeIf { it != -1 }?.let { board.called[it] = true } }
     }
@@ -58,6 +60,17 @@ data class BingoGame(
         for (n in calls) {
             call(n)
             boards.firstOrNull { board -> board.isWinner }?.let { return it.unmarkedNumbers.sum() * n }
+        }
+        return -1
+    }
+
+    fun getLosingScore(): Int {
+        for (n in calls) {
+            call(n)
+            winners = (winners + boards.filter(Board::isWinner)).distinct()
+            if (boards.all { board -> board.isWinner }) {
+                return winners.last().unmarkedNumbers.sum() * n
+            }
         }
         return -1
     }

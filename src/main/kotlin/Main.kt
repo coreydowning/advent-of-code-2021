@@ -28,7 +28,7 @@ fun main(args: Array<String>) {
     println("Boards: $boards")
     val game = BingoGame(boards.toList(), calls)
     println("BingoGame: $game")
-    println("Winning Score: ${game.getWinningScore()}")
+    println("Losing Score: ${game.getLosingScore()}")
 }
 
 private fun readln() = readLine()!!
