@@ -4,7 +4,7 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 
 class Day3BinaryDiagnosticKtTest : FunSpec({
-    context("part 1") {
+    xcontext("part 1") {
         test("one small piece") {
             gammaOf(false) shouldBe false
             gammaOf(true) shouldBe true
@@ -40,7 +40,25 @@ class Day3BinaryDiagnosticKtTest : FunSpec({
         }
     }
 
-    xcontext("part 2") {
+    context("part 2") {
+        test("oxygen") {
+            Part1.oxygen(listOf("0"), 0, 1) shouldBe 0
+            Part1.oxygen(listOf("1"), 0, 1) shouldBe 1
+            Part1.oxygen(listOf("01", "10"), 0, 2) shouldBe 2
+            Part1.oxygen(listOf("11", "10"), 0, 2) shouldBe 3
+            Part1.oxygen(listOf("000", "001", "010", "011", "100", "101", "110", "111"), 0, 3) shouldBe 7
+            Part1.oxygen(listOf("1000", "1001", "1011", "1110"), 0, 4) shouldBe 9
+        }
+
+        test("co2") {
+            Part1.co2(listOf("0"), 0, 1) shouldBe 0
+            Part1.co2(listOf("1"), 0, 1) shouldBe 1
+            Part1.co2(listOf("01", "10"), 0, 2) shouldBe 1
+//            Part1.co2(listOf("11", "10"), 0, 2) shouldBe 2
+            Part1.co2(listOf("000", "001", "010", "011", "100", "101", "110", "111"), 0, 3) shouldBe 0
+            Part1.co2(listOf("1000", "0101", "0011", "1110"), 0, 4) shouldBe 3
+        }
+
         test("the whole shebang") {
             val readings = """
                 00100
@@ -61,7 +79,7 @@ class Day3BinaryDiagnosticKtTest : FunSpec({
                 gammaRate = 22,
                 epsilonRate = 9,
                 oxygenGeneratorRating = 23,
-                co2ScrubberRating = 0,
+                co2ScrubberRating = 10,
             )
         }
     }

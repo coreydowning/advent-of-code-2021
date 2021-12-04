@@ -14,7 +14,7 @@ fun main(args: Array<String>) {
     }
     println("Input: $inputs")
     val consumption = Part1.calculate(inputs)
-    println("Day3BinaryDiagnostic: $consumption which is ${consumption.gammaRate * consumption.epsilonRate}")
+    println("Day3BinaryDiagnostic: $consumption which is ${consumption.lifeSupportRating}")
 }
 
 private fun readln() = readLine()!!
