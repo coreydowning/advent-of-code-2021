@@ -1,10 +1,23 @@
+import com.coreydowning.adventofcode2021.BingoGame
+import com.coreydowning.adventofcode2021.Board
 import com.coreydowning.adventofcode2021.Part1
+import java.util.regex.Pattern
 
 fun main(args: Array<String>) {
-    val inputs = mutableListOf<String>()
+    val calls = readln().split(',').map(String::toInt)
+    println("Calls: $calls")
+    val boards = mutableListOf<Board>()
     while (true) {
         try {
-            inputs.add(readln())
+            val thing = readln() // blank line
+            println("thing is $thing")
+            boards.add(Board(
+                (0..4).map {
+                    val row = readlnStrings()
+                    println("row $it is $row")
+                    row.map(String::toInt)
+                }.flatten().toTypedArray()
+            ))
         } catch (npe: NullPointerException) {
             break
         } catch (t: Throwable) {
@@ -12,9 +25,10 @@ fun main(args: Array<String>) {
             break
         }
     }
-    println("Input: $inputs")
-    val consumption = Part1.calculate(inputs)
-    println("Day3BinaryDiagnostic: $consumption which is ${consumption.lifeSupportRating}")
+    println("Boards: $boards")
+    val game = BingoGame(boards.toList(), calls)
+    println("BingoGame: $game")
+    println("Winning Score: ${game.getWinningScore()}")
 }
 
 private fun readln() = readLine()!!
@@ -28,7 +42,7 @@ private fun readlnBigInt(radix: Int = 10) = readln().toBigInteger(radix)
 private fun readlnBigDecimal() = readln().toBigDecimal()
 
 private fun lineSequence(limit: Int = Int.MAX_VALUE) = generateSequence { readLine() }.constrainOnce().take(limit)
-private fun readlnStrings() = readln().split(' ')
+private fun readlnStrings() = readln().trim().split(Pattern.compile("\\s+"))
 private fun readlnBytes() = readlnStrings().map { it.toByte() }
 private fun readlnShorts() = readlnStrings().map { it.toShort() }
 private fun readlnInts() = readlnStrings().map { it.toInt() }
