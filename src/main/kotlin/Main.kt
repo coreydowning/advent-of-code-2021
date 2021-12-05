@@ -1,23 +1,18 @@
-import com.coreydowning.adventofcode2021.BingoGame
-import com.coreydowning.adventofcode2021.Board
-import com.coreydowning.adventofcode2021.Part1
+import com.coreydowning.adventofcode2021.*
 import java.util.regex.Pattern
 
 fun main(args: Array<String>) {
-    val calls = readln().split(',').map(String::toInt)
-    println("Calls: $calls")
-    val boards = mutableListOf<Board>()
+    val vents = mutableListOf<LineSegment>()
     while (true) {
         try {
-            val thing = readln() // blank line
-            println("thing is $thing")
-            boards.add(Board(
-                (0..4).map {
-                    val row = readlnStrings()
-                    println("row $it is $row")
-                    row.map(String::toInt)
-                }.flatten().toTypedArray()
-            ))
+            val line = readlnStrings()
+            val point1Coords = line.first().split(',').map(String::toInt)
+            val point2Coords = line.last().split(',').map(String::toInt)
+            vents.add(
+                LineSegment(
+                    Point(point1Coords[0], point1Coords[1]) to Point(point2Coords[0], point2Coords[1])
+                )
+            )
         } catch (npe: NullPointerException) {
             break
         } catch (t: Throwable) {
@@ -25,10 +20,9 @@ fun main(args: Array<String>) {
             break
         }
     }
-    println("Boards: $boards")
-    val game = BingoGame(boards.toList(), calls)
-    println("BingoGame: $game")
-    println("Losing Score: ${game.getLosingScore()}")
+    println("Vents $vents")
+    val nearbyVents = NearbyVents(vents)
+    println("How many dangerous points: ${nearbyVents.howManyDangerousPoints()}")
 }
 
 private fun readln() = readLine()!!
