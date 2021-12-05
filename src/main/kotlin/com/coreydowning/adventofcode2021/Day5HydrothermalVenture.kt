@@ -5,23 +5,29 @@ data class Point(
     val y: Int,
 )
 
+private infix fun Int.rangeTo(to: Int): IntProgression {
+    val step = if (this > to) -1 else 1
+    return IntProgression.fromClosedRange(this, to, step)
+}
+
 data class LineSegment(
     val points: Pair<Point, Point>,
 ) {
-    fun covers(point: Point): Boolean =
-        (isHorizontal && point.y == points.first.y && inHorizontalLine(point)) ||
-        (isVertical && point.x == points.first.x && inVerticalLine(point))
+    fun covers(point: Point): Boolean = point in pointsInLine
 
-    private fun inVerticalLine(point: Point) =
-        (points.first.y..points.second.y).contains(point.y) ||
-        (points.second.y..points.first.y).contains(point.y)
-
-    private fun inHorizontalLine(point: Point) =
-        (points.first.x..points.second.x).contains(point.x) ||
-        (points.second.x..points.first.x).contains(point.x)
+    private val xPoints = (points.first.x rangeTo points.second.x)
+    private val yPoints = (points.first.y rangeTo points.second.y)
 
     private val isHorizontal = points.first.y == points.second.y
     private val isVertical = points.first.x == points.second.x
+
+    val pointsInLine = if (isHorizontal) {
+        xPoints.map { x -> Point(x, points.first.y) }
+    } else if (isVertical) {
+        yPoints.map { y -> Point(points.first.x, y) }
+    } else {
+        xPoints.zip(yPoints).map { (x, y) -> Point(x, y) }
+    }
 }
 
 data class NearbyVents(
