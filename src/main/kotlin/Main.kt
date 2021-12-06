@@ -2,27 +2,28 @@ import com.coreydowning.adventofcode2021.*
 import java.util.regex.Pattern
 
 fun main(args: Array<String>) {
-    val vents = mutableListOf<LineSegment>()
-    while (true) {
-        try {
-            val line = readlnStrings()
-            val point1Coords = line.first().split(',').map(String::toInt)
-            val point2Coords = line.last().split(',').map(String::toInt)
-            vents.add(
-                LineSegment(
-                    Point(point1Coords[0], point1Coords[1]) to Point(point2Coords[0], point2Coords[1])
-                )
-            )
-        } catch (npe: NullPointerException) {
-            break
-        } catch (t: Throwable) {
-            System.err.println("caught $t")
-            break
-        }
-    }
-    println("Vents $vents")
-    val nearbyVents = NearbyVents(vents)
-    println("How many dangerous points: ${nearbyVents.howManyDangerousPoints()}")
+    val fish = readln().split(',').map(String::toInt).map(Int::asFish)
+//    while (true) {
+//        try {
+//            val line = readlnStrings()
+//            val point1Coords = line.first().split(',').map(String::toInt)
+//            val point2Coords = line.last().split(',').map(String::toInt)
+//            vents.add(
+//                LineSegment(
+//                    Point(point1Coords[0], point1Coords[1]) to Point(point2Coords[0], point2Coords[1])
+//                )
+//            )
+//        } catch (npe: NullPointerException) {
+//            break
+//        } catch (t: Throwable) {
+//            System.err.println("caught $t")
+//            break
+//        }
+//    }
+    println("Fish $fish")
+    val simulation = OptimizedSimulation(fish)
+    (0 until 256).forEach { _ -> simulation.advanceDay() }
+    println("Final fish count ${simulation.totalFish}")
 }
 
 private fun readln() = readLine()!!
