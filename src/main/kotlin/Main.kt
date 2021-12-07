@@ -2,7 +2,7 @@ import com.coreydowning.adventofcode2021.*
 import java.util.regex.Pattern
 
 fun main(args: Array<String>) {
-    val fish = readln().split(',').map(String::toInt).map(Int::asFish)
+    val crabSubPositions = readln().split(',').map(String::toInt)
 //    while (true) {
 //        try {
 //            val line = readlnStrings()
@@ -20,10 +20,9 @@ fun main(args: Array<String>) {
 //            break
 //        }
 //    }
-    println("Fish $fish")
-    val simulation = OptimizedSimulation(fish)
-    (0 until 256).forEach { _ -> simulation.advanceDay() }
-    println("Final fish count ${simulation.totalFish}")
+    println("CrabSubmarines $crabSubPositions")
+    val aligner = CrabSubmarineAligner(crabSubPositions)
+    println("Optimal Crab Submarine Alignment ${aligner.cheapestPosition()}")
 }
 
 private fun readln() = readLine()!!
