@@ -12,10 +12,8 @@ class CrabSubmarineAlignerTest : FunSpec({
 
         withData(
             nameFn = { (position, fuel) -> "fuelToMoveToPosition($position) should be $fuel" },
-            2 to 37,
-            1 to 41,
-            3 to 39,
-            10 to 71,
+            2 to 206L,
+            5 to 168L,
         ) { (position, fuel) ->
             aligner.crabSubmarines.asClue {
                 aligner.fuelToMoveToPosition(position) shouldBe fuel
@@ -24,7 +22,7 @@ class CrabSubmarineAlignerTest : FunSpec({
 
         test("cheapestPosition") {
             aligner.crabSubmarines.asClue {
-                aligner.cheapestPosition() shouldBe (2 to 37)
+                aligner.cheapestPosition() shouldBe (5 to 168L)
             }
         }
     }
