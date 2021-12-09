@@ -2,27 +2,20 @@ import com.coreydowning.adventofcode2021.*
 import java.util.regex.Pattern
 
 fun main(args: Array<String>) {
-    val crabSubPositions = readln().split(',').map(String::toInt)
-//    while (true) {
-//        try {
-//            val line = readlnStrings()
-//            val point1Coords = line.first().split(',').map(String::toInt)
-//            val point2Coords = line.last().split(',').map(String::toInt)
-//            vents.add(
-//                LineSegment(
-//                    Point(point1Coords[0], point1Coords[1]) to Point(point2Coords[0], point2Coords[1])
-//                )
-//            )
-//        } catch (npe: NullPointerException) {
-//            break
-//        } catch (t: Throwable) {
-//            System.err.println("caught $t")
-//            break
-//        }
-//    }
-    println("CrabSubmarines $crabSubPositions")
-    val aligner = CrabSubmarineAligner(crabSubPositions)
-    println("Optimal Crab Submarine Alignment ${aligner.cheapestPosition()}")
+    val input = mutableListOf<String>()
+    while (true) {
+        try {
+            input.add(readln())
+        } catch (npe: NullPointerException) {
+            break
+        } catch (t: Throwable) {
+            System.err.println("caught $t")
+            break
+        }
+    }
+    val entrySet = EntrySet.fromInput(input)
+    println("EntrySet: $entrySet")
+    println("Sum of all Outputs: ${entrySet.sumOfOutputs}")
 }
 
 private fun readln() = readLine()!!
