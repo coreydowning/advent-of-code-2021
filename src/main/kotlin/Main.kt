@@ -2,10 +2,13 @@ import com.coreydowning.adventofcode2021.*
 import java.util.regex.Pattern
 
 fun main(args: Array<String>) {
-    val input = mutableListOf<String>()
+    val input = mutableListOf<Int>()
+    val firstRow = readln().map { it.digitToInt() }
+    val columns = firstRow.size
+    input.addAll(firstRow)
     while (true) {
         try {
-            input.add(readln())
+            input.addAll(readln().map { it.digitToInt() })
         } catch (npe: NullPointerException) {
             break
         } catch (t: Throwable) {
@@ -13,9 +16,9 @@ fun main(args: Array<String>) {
             break
         }
     }
-    val entrySet = EntrySet.fromInput(input)
-    println("EntrySet: $entrySet")
-    println("Sum of all Outputs: ${entrySet.sumOfOutputs}")
+    val heightmap = Heightmap(input, columns)
+    println("Heightmap: $heightmap")
+    println("Risk Level: ${heightmap.riskLevel}")
 }
 
 private fun readln() = readLine()!!
