@@ -4,9 +4,9 @@ package com.coreydowning.adventofcode2021
 import io.kotest.assertions.asClue
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
+import io.kotest.matchers.collections.shouldContainAll
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
-import io.kotest.matchers.maps.shouldContainExactly
 import io.kotest.matchers.shouldBe
 
 class Day9KtTest : FunSpec({
@@ -19,7 +19,6 @@ class Day9KtTest : FunSpec({
             9, 8, 9, 9, 9, 6, 5, 6, 7, 8,
         )
         val heightmap = Heightmap(input, 10)
-
 
         withData(
             0 to listOf(1, 10),
@@ -44,6 +43,17 @@ class Day9KtTest : FunSpec({
 
         test("sum of risk levels") {
             heightmap.asClue { heightmap.riskLevel shouldBe 15 }
+        }
+
+        test("basins") {
+            heightmap.basins.asClue {
+                it shouldContainExactly setOf(
+                    setOf(0, 1, 10),
+                    setOf(9, 19, 29, 8, 18, 7, 6, 16, 5),
+                    setOf(12, 13, 14, 21, 22, 23, 24, 25, 30, 31, 32, 33, 34, 41),
+                    setOf(27, 36, 37, 38, 45, 46, 47, 48, 49),
+                )
+            }
         }
     }
 })

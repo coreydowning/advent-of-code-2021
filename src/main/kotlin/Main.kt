@@ -18,7 +18,8 @@ fun main(args: Array<String>) {
     }
     val heightmap = Heightmap(input, columns)
     println("Heightmap: $heightmap")
-    println("Risk Level: ${heightmap.riskLevel}")
+    println("Basins: ${heightmap.basins}")
+    println("Size of three largest basins : ${heightmap.basinDangerScore}")
 }
 
 private fun readln() = readLine()!!
