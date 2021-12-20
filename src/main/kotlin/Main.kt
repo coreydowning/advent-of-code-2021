@@ -2,13 +2,10 @@ import com.coreydowning.adventofcode2021.*
 import java.util.regex.Pattern
 
 fun main(args: Array<String>) {
-    val input = mutableListOf<Int>()
-    val firstRow = readln().map { it.digitToInt() }
-    val columns = firstRow.size
-    input.addAll(firstRow)
+    val input = mutableListOf<String>()
     while (true) {
         try {
-            input.addAll(readln().map { it.digitToInt() })
+            input.add(readln())
         } catch (npe: NullPointerException) {
             break
         } catch (t: Throwable) {
@@ -16,10 +13,11 @@ fun main(args: Array<String>) {
             break
         }
     }
-    val heightmap = Heightmap(input, columns)
-    println("Heightmap: $heightmap")
-    println("Basins: ${heightmap.basins}")
-    println("Size of three largest basins : ${heightmap.basinDangerScore}")
+    val file = File.parseInput(input)
+    println("File: $file")
+    println("Corrupted Score : ${file.corruptedScore}")
+    println("Autocomplete Scores : ${file.uncorruptLines.map { it.autocompleteScore }.sorted()}")
+    println("Autocomplete Score : ${file.autocompleteScore}")
 }
 
 private fun readln() = readLine()!!
